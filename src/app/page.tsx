@@ -1,4 +1,4 @@
-import { Card, SearchBar } from "./components";
+import { Card, SearchBar } from "@components";
 import styles from "./page.module.css";
 
 export default function Home() {

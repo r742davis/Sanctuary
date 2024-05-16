@@ -2,7 +2,7 @@
 
 import { PropsWithChildren, ReactNode, useState } from "react";
 import classNames from "classnames";
-import Modal from "../Modal/Modal";
+import { Modal } from "@components";
 import styles from "./Card.module.css";
 
 type CardProps = {
