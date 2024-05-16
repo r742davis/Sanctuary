@@ -1,0 +1,7 @@
+.search {
+    height: 3rem;
+    width: 60%;
+    border: 2px solid gray;
+    border-radius: 2rem;
+    background-color: #ffffff50;
+}

@@ -1,0 +1,16 @@
+.card {
+  min-height: 300px;
+  min-width: 200px;
+  padding: 0.8rem;
+  background-color: aliceblue;
+  border-radius: 0.8rem;
+  flex: 1;
+}
+
+.card:not(.is-open):hover {
+  cursor: pointer;
+}
+
+.title {
+  margin-bottom: 0.8rem;
+}
