@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, SearchBar } from "@components";
+import { Card, CardProps, SearchBar } from "@components";
 import styles from "./page.module.css";
 import { useState } from "react";
 
@@ -22,7 +22,7 @@ export default function Home() {
     content: "Quartz is a mineral",
   });
 
-  const combinedArrays: Array<{ title: string; content: string }> = [...cardsArray1, ...cardsArray2, ...cardsArray3];
+  const combinedArrays: Array<CardProps> = [...cardsArray1, ...cardsArray2, ...cardsArray3];
 
   const filterItems = (query: string) => {
     const regex = new RegExp(query, "i");

@@ -2,12 +2,16 @@ import { PropsWithChildren } from "react";
 import { createPortal } from "react-dom";
 import styles from "./Modal.module.css";
 
-type ModalProps = {
+export type ModalProps = {
   onClose: () => void;
   title?: string;
-} & PropsWithChildren;
+};
 
-export default function Modal({ children, onClose, title }: ModalProps) {
+export default function Modal({
+  children,
+  onClose,
+  title,
+}: ModalProps & PropsWithChildren) {
   const portalRoot = document.getElementById("portal-root") as HTMLElement;
 
   const modalJsx = (

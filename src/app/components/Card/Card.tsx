@@ -1,14 +1,14 @@
 "use client";
 
-import { PropsWithChildren, ReactNode, useState } from "react";
+import { ReactNode, useState } from "react";
 import classNames from "classnames";
 import { Modal } from "@components";
 import styles from "./Card.module.css";
 
-type CardProps = {
+export type CardProps = {
   title: string;
-  content: string | ReactNode;
-} & PropsWithChildren;
+  content: string;
+};
 
 export default function Card({ title, content }: CardProps) {
   const [isCardOpen, setCardOpen] = useState(false);
