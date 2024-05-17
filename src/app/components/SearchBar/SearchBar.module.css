@@ -40,13 +40,10 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-
   pointer-events: none;
   opacity: 0;
-  transition: transform 500ms cubic-bezier(0, 0, 0.5, 1),
-    opacity 500ms cubic-bezier(0, 0, 0.5, 1),
-    visibility 500ms cubic-bezier(0, 0, 0.5, 1),
-    background-color 300ms cubic-bezier(0, 0, 0.5, 1);
+  transition: transform 500ms cubic-bezier(0, 0, 0.5, 1), opacity 500ms cubic-bezier(0, 0, 0.5, 1),
+    visibility 500ms cubic-bezier(0, 0, 0.5, 1), background-color 300ms cubic-bezier(0, 0, 0.5, 1);
 }
 
 .button svg {

@@ -96,6 +96,18 @@ a {
   text-decoration: none;
 }
 
+button,
+input {
+  font-family: var(--font-mono);
+}
+
+textarea {
+  border: none;
+  background-color: transparent;
+  resize: none;
+  outline: none;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
