@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import classNames from "classnames";
 import { Modal } from "@components";
 import styles from "./Card.module.css";

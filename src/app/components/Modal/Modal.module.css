@@ -13,6 +13,8 @@
 }
 
 .modal {
+  display: flex;
+  flex-flow: column;
   height: 50vh;
   width: 100%;
   max-width: 500px;
@@ -35,6 +37,9 @@
 }
 
 .content {
+  flex: 1;
+  display: flex;
+  flex-flow: column;
   padding: 0.8rem;
 }
 
