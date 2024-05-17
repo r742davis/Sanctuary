@@ -18,7 +18,35 @@
   max-width: var(--max-width);
 }
 
-.content h2 {
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button {
+  background-color: #218cf0;
+  color: white;
+  border: none;
+  height: 2.4rem;
+  line-height: 2.4rem;
+  font-size: 1.2rem;
+  width: auto;
+  border-radius: 1.6rem;
+  padding: 0 0.8rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 300ms cubic-bezier(0, 0, 0.5, 1);
+}
+
+.button:hover {
+  background-color: #196fc1;
+  transition: background-color 300ms cubic-bezier(0, 0, 0.5, 1);
+}
+
+.title h2 {
   margin-bottom: 1.6rem;
 }
 

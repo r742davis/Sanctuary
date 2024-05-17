@@ -1,16 +1,11 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Card, SearchBar } from "@components";
+import queryClient from "lib/react-query-client";
+import { NoteData, createNote, getNotes } from "lib/note-api";
 import styles from "./page.module.css";
-
-type NoteData = {
-  title: string;
-  content: string;
-  date: Date;
-};
 
 export default function Home() {
   const [keyword, setKeyword] = useState("");
@@ -21,17 +16,13 @@ export default function Home() {
     isFetching,
   } = useQuery({
     queryKey: ["notes"],
-    queryFn: async () => {
-      try {
-        const { data: notes } = await axios.get<NoteData[]>(
-          (process.env.NEXT_PUBLIC_HEROKU_API_URI as string) || (process.env.HEROKU_API_URI as string)
-        );
-        return notes;
-      } catch (error) {
-        throw new Error("Failed to fetch note data");
-      }
-    },
+    queryFn: getNotes,
     retry: 3,
+  });
+
+  const mutation = useMutation({
+    mutationFn: createNote,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["notes"] }),
   });
 
   const filterNotes = useCallback((query: string, notes: Array<NoteData>) => {
@@ -52,7 +43,21 @@ export default function Home() {
         <SearchBar handleSubmit={handleSubmitKeyword} />
       </div>
       <div className={styles.content}>
-        <h2>Notes</h2>
+        <div className={styles.title}>
+          <h2>Notes</h2>
+          <button
+            className={styles.button}
+            onClick={() => {
+              mutation.mutate({
+                title: "TEST 1",
+                content: "hello",
+              });
+            }}
+            title="Create New Note"
+          >
+            +
+          </button>
+        </div>
         <div className={styles.list}>
           {filteredCards.map((card, i) => (
             <Card key={`card-${i}`} title={card.title} content={card.content} />
