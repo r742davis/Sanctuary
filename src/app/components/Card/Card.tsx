@@ -35,7 +35,11 @@ export default function Card({ title, content }: CardProps) {
 
   return (
     <>
-      {isCardOpen && <Modal onClose={handleCloseCard}>{cardJsx}</Modal>}
+      {isCardOpen && (
+        <Modal onClose={handleCloseCard} removePadding>
+          {cardJsx}
+        </Modal>
+      )}
       {cardJsx}
     </>
   );
