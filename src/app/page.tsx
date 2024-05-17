@@ -35,8 +35,6 @@ export default function Home() {
   });
 
   const filterNotes = useCallback((query: string, notes: Array<NoteData>) => {
-    if (!!query) return notes;
-
     const regex = new RegExp(query, "i");
     return notes.filter((note) => regex.test(note.content));
   }, []);
