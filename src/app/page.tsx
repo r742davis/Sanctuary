@@ -1,40 +1,51 @@
 "use client";
 
-import { Card, CardProps, SearchBar } from "@components";
+import { useCallback, useState } from "react";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import { Card, SearchBar } from "@components";
 import styles from "./page.module.css";
-import { useState } from "react";
+
+type NoteData = {
+  title: string;
+  content: string;
+  date: Date;
+};
 
 export default function Home() {
   const [keyword, setKeyword] = useState("");
-
-  const cardsArray1 = new Array(3).fill({
-    title: "Oh my!",
-    content: "Singing in the rain",
+  const {
+    isPending,
+    error,
+    data: notesData,
+    isFetching,
+  } = useQuery({
+    queryKey: ["notes"],
+    queryFn: async () => {
+      try {
+        const { data: notes } = await axios.get<NoteData[]>(
+          (process.env.NEXT_PUBLIC_HEROKU_API_URI as string) || (process.env.HEROKU_API_URI as string)
+        );
+        return notes;
+      } catch (error) {
+        throw new Error("Failed to fetch note data");
+      }
+    },
+    retry: 3,
   });
 
-  const cardsArray2 = new Array(3).fill({
-    title: "Hello",
-    content: "Content goes here boyyy",
-  });
+  const filterNotes = useCallback((query: string, notes: Array<NoteData>) => {
+    if (!!query) return notes;
 
-  const cardsArray3 = new Array(4).fill({
-    title: "Metals",
-    content: "Quartz is a mineral",
-  });
-
-  const combinedArrays: Array<CardProps> = [...cardsArray1, ...cardsArray2, ...cardsArray3];
-
-  const filterItems = (query: string) => {
     const regex = new RegExp(query, "i");
-    return combinedArrays.filter((item) => regex.test(item.content));
-  };
+    return notes.filter((note) => regex.test(note.content));
+  }, []);
 
   const handleSubmitKeyword = (submission: string) => {
-    console.log('submit');
     setKeyword(submission);
   };
 
-  const filteredCards = !!keyword ? filterItems(keyword) : combinedArrays;
+  const filteredCards: Array<NoteData> = !!notesData ? filterNotes(keyword, notesData) : [];
 
   return (
     <main className={styles.main}>
