@@ -14,17 +14,14 @@ export default function Modal({ children, onClose, removePadding, header = "Note
 
   const modalJsx = (
     <div className={styles.overlay} onClick={onClose}>
-      <div
-        className={classNames(styles.modal, { [styles["remove-padding"]]: removePadding })}
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
           <h4>{header}</h4>
           <button className={styles["close-button"]} onClick={onClose}>
             &times;
           </button>
         </div>
-        <div className={styles.content}>{children}</div>
+        <div className={classNames(styles.content, { [styles["remove-padding"]]: removePadding })}>{children}</div>
       </div>
     </div>
   );
