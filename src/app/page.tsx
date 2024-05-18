@@ -55,10 +55,10 @@ export default function Home() {
       )}
 
       <main className={styles.main}>
-        <div className={styles.header}>
+        <header className={styles.header}>
           <h1>Sanctuary</h1>
           <SearchBar handleSubmit={handleSubmitKeyword} />
-        </div>
+        </header>
         <div className={styles.content}>
           <div className={styles.title}>
             <h2>Notes</h2>
