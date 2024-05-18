@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
 import { createPortal } from "react-dom";
-import styles from "./Modal.module.css";
 import classNames from "classnames";
+import styles from "./Modal.module.css";
 
 export type ModalProps = {
   onClose: () => void;
@@ -17,7 +17,7 @@ export default function Modal({ children, onClose, removePadding, header = "Note
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
           <h4>{header}</h4>
-          <button className={styles["close-button"]} onClick={onClose}>
+          <button className={styles["close-button"]} onClick={onClose} title="Close the note">
             &times;
           </button>
         </div>

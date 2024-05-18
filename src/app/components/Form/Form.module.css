@@ -41,7 +41,7 @@
   min-height: 2.4rem;
   width: auto;
   padding: 0 0.8rem 0;
-  background-color: #218cf0;
+  background-color: var(--button-color);
   color: white;
   border: none;
   border-radius: 1.6rem;
@@ -52,7 +52,7 @@
 }
 
 .button:hover {
-  background-color: #196fc1;
+  background-color: var(--button-color-hover);
   transition: background-color 300ms cubic-bezier(0, 0, 0.5, 1);
 }
 
@@ -64,7 +64,7 @@
   height: auto;
   min-height: 2.4rem;
   padding: 0.8rem;
-  background-color: #f02147;
+  background-color: var(--button-color-error);
   color: white;
   border: none;
   border-radius: 0.4rem;

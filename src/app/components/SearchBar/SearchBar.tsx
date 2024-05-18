@@ -1,18 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import styles from "./SearchBar.module.css";
 import classNames from "classnames";
+import styles from "./SearchBar.module.css";
 
 export type SearchBarProps = {
   placeholder?: string;
   handleSubmit: (keyword: string) => void;
 };
 
-export default function SearchBar({
-  handleSubmit,
-  placeholder = "Search",
-}: SearchBarProps) {
+export default function SearchBar({ handleSubmit, placeholder = "Search" }: SearchBarProps) {
   const [searchInput, setSearchInput] = useState<string>("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

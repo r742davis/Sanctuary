@@ -28,7 +28,7 @@
 }
 
 .button {
-  background-color: #218cf0;
+  background-color: var(--button-color);
   color: white;
   border: none;
   height: 2.4rem;
@@ -52,7 +52,7 @@
 }
 
 .button:hover {
-  background-color: #196fc1;
+  background-color: var(--button-color-hover);
   transition: background-color 500ms cubic-bezier(0, 0, 0.5, 1);
 }
 

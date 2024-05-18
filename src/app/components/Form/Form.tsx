@@ -1,10 +1,8 @@
-import { EditableField } from "@components";
-import useForm from "lib/hooks/useForm";
-import styles from "./Form.module.css";
-import { Note } from "lib/note-api";
-import { sanitizeAndValidateInput } from "lib/validation";
 import { useState } from "react";
 import classNames from "classnames";
+import { EditableField } from "@components";
+import { Note, sanitizeAndValidateInput, useForm } from "@lib";
+import styles from "./Form.module.css";
 
 export default function Form({ onSubmit }: { onSubmit: (newNote: Note) => void }) {
   const [error, setError] = useState<string | null>(null);

@@ -55,6 +55,9 @@
   align-items: center;
   font-size: 1.6rem;
   cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: transparent;
 }
 
 @keyframes fadeIn {
