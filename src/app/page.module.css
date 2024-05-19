@@ -39,27 +39,31 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition: background-color 500ms cubic-bezier(0, 0, 0.5, 1);
+  transition: opacity var(--transition-fast),
+  background-color var(--transition-fast),
+  width var(--transition);
 }
 
 .button::after {
   content: "New";
   opacity: 0;
   width: 0;
-  transition: opacity 50ms cubic-bezier(0, 0, 0.5, 1), background-color 50ms cubic-bezier(0, 0, 0.5, 1),
-    width 300ms cubic-bezier(0.24, 0.95, 0.63, 0.97);
+  transition: opacity var(--transition-fast),
+    background-color var(--transition-fast),
+    width var(--transition);
 }
 
 .button:hover {
   background-color: var(--button-background-hover);
-  transition: background-color 500ms cubic-bezier(0, 0, 0.5, 1);
+  transition: background-color var(--transition-slow);
 }
 
 .button:hover::after {
   opacity: 1;
   width: 50px;
-  transition: opacity 500ms cubic-bezier(0, 0, 0.5, 1), background-color 500ms cubic-bezier(0, 0, 0.5, 1),
-    width 300ms cubic-bezier(0.24, 0.95, 0.63, 0.97);
+  transition: opacity var(--transition-slow),
+    background-color var(--transition-slow),
+    width var(--transition);
   pointer-events: auto;
 }
 

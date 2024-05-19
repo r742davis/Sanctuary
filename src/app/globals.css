@@ -5,6 +5,7 @@
 
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
+  --stroke-color: #6c757d;
 
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
@@ -12,6 +13,14 @@
   --button-background: #218cf0;
   --button-background-hover: #196fc1;
   --button-background-error: #f02147;
+
+  --animation-timing: cubic-bezier(0.24, 0.95, 0.63, 0.97);
+  --animation-duration: 300ms;
+  --animation-duration-slow: 500ms;
+  --animation-duration-fast: 100ms;
+  --transition: var(--animation-duration) var(--animation-timing);
+  --transition-slow: var(--animation-duration-slow) var(--animation-timing);
+  --transition-fast: var(--animation-duration-fast) var(--animation-timing);
 }
 
 * {

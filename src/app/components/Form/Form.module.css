@@ -48,12 +48,12 @@
   z-index: 2;
   cursor: pointer;
   opacity: 1;
-  transition: background-color 300ms cubic-bezier(0, 0, 0.5, 1);
+  transition: background-color var(--transition);
 }
 
 .button:hover {
   background-color: var(--button-background-hover);
-  transition: background-color 300ms cubic-bezier(0, 0, 0.5, 1);
+  transition: background-color var(--transition);
 }
 
 .error {
@@ -73,8 +73,8 @@
   opacity: 0;
   pointer-events: none;
   transform: translateY(10px);
-  transition: transform 500ms cubic-bezier(0, 0, 0.5, 1), opacity 500ms cubic-bezier(0, 0, 0.5, 1),
-    visibility 500ms cubic-bezier(0, 0, 0.5, 1), background-color 300ms cubic-bezier(0, 0, 0.5, 1);
+  transition: transform var(--transition-slow), opacity var(--transition-slow),
+    visibility var(--transition-slow), background-color var(--transition);
 }
 
 .error.is-visible,
