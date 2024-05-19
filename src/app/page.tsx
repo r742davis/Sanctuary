@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Card, Form, Modal, SearchBar } from "@components";
 import queryClient from "lib/react-query-client";
-import { Note, createNote, getNotes } from "lib/note-api";
+import { Note, createNote, getNotes, updateNote } from "lib/note-api";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -21,8 +21,13 @@ export default function Home() {
     retry: 3,
   });
 
-  const { mutate, isError: isMutationError } = useMutation({
+  const { mutate: createNoteMutation, isError: isCreateError } = useMutation({
     mutationFn: createNote,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["notes"] }),
+  });
+
+  const { mutate: updateNoteMutation, isError: isUpdateError } = useMutation({
+    mutationFn: updateNote,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["notes"] }),
   });
 
@@ -40,8 +45,13 @@ export default function Home() {
   };
 
   const handleCreateNote = (newNote: Note) => {
-    mutate(newNote);
-    if (!isMutationError) setModalOpen(false);
+    createNoteMutation(newNote);
+    if (!isCreateError) setModalOpen(false);
+  };
+
+  const handleUpdateNote = (updatedNote: Note) => {
+    updateNoteMutation(updatedNote);
+    if (!isUpdateError) setModalOpen(false);
   };
 
   const filteredCards: Array<Note> = !!notesData ? filterNotes(keyword, notesData) : [];

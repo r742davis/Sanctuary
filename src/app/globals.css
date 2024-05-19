@@ -9,9 +9,9 @@
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
 
-  --button-color: #218cf0;
-  --button-color-hover: #196fc1;
-  --button-color-error: #f02147;
+  --button-background: #218cf0;
+  --button-background-hover: #196fc1;
+  --button-background-error: #f02147;
 }
 
 * {
@@ -41,8 +41,17 @@ a {
 }
 
 button,
-input {
+input,
+optgroup,
+select,
+textarea {
   font-family: var(--font-mono);
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+  border: none;
+  background-color: transparent;
 }
 
 textarea {
@@ -50,10 +59,4 @@ textarea {
   background-color: transparent;
   resize: none;
   outline: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
 }
