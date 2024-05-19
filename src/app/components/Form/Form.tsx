@@ -4,9 +4,15 @@ import { EditableField } from "@components";
 import { Note, sanitizeAndValidateInput, useForm } from "@lib";
 import styles from "./Form.module.css";
 
-export default function Form({ onSubmit }: { onSubmit: (newNote: Note) => void }) {
+export default function Form({
+  initialValues,
+  onSubmit,
+}: {
+  initialValues?: { title?: string; content?: string };
+  onSubmit: (note: Pick<Note, "title" | "content">) => void;
+}) {
   const [error, setError] = useState<string | null>(null);
-  const { values, handleChange, resetForm } = useForm<Note>({
+  const { values, handleChange, resetForm } = useForm<Pick<Note, "title" | "content">>({
     title: "",
     content: "",
   });
@@ -31,8 +37,19 @@ export default function Form({ onSubmit }: { onSubmit: (newNote: Note) => void }
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <EditableField name="title" className={styles["title"]} placeholder="Title" handleChange={handleChange} />
-      <EditableField name="content" placeholder="Take a note..." handleChange={handleChange} />
+      <EditableField
+        name="title"
+        className={styles["title"]}
+        placeholder="Title"
+        value={initialValues?.title}
+        handleChange={handleChange}
+      />
+      <EditableField
+        name="content"
+        placeholder="Take a note..."
+        value={initialValues?.content}
+        handleChange={handleChange}
+      />
       <div className={styles.container}>
         <p className={classNames(styles.error, { [styles["is-visible"]]: !!error })}>
           {error}

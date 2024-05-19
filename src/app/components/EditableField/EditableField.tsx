@@ -5,6 +5,7 @@ type EditableFieldProps = {
   className?: string;
   placeholder?: string;
   name: string;
+  value?: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 };
 
@@ -12,6 +13,7 @@ export default function EditableField({
   className = "",
   placeholder = "Add text...",
   name,
+  value,
   handleChange,
 }: EditableFieldProps) {
   return (
@@ -25,6 +27,7 @@ export default function EditableField({
       name={name}
       spellCheck="true"
       onChange={(e) => handleChange(e)}
+      defaultValue={value}
     />
   );
 }

@@ -1,24 +1,24 @@
 .card {
   display: flex;
   flex-flow: column;
-  min-height: 400px;
-  min-width: 200px;
+  height: 400px;
   padding: 0.8rem;
   background-color: aliceblue;
   border-radius: 0.8rem;
   position: relative;
 }
 
-.card:not(.is-open):hover {
-  cursor: pointer;
-}
-
 .title {
   margin-bottom: 0.8rem;
 }
 
-.content {
+.content,
+.click-wrapper {
   height: 100%;
+}
+
+.click-wrapper:not(.is-open):hover {
+  cursor: pointer;
 }
 
 .button-container {

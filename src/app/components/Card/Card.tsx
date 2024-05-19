@@ -2,46 +2,49 @@
 
 import { useState } from "react";
 import classNames from "classnames";
-import { Modal } from "@components";
+import { Form, Modal } from "@components";
 import { DeleteIcon, EditIcon } from "@icons";
+import { Note, useNoteMutations } from "@lib";
 import styles from "./Card.module.css";
 
 export type CardProps = {
+  _id: string;
   title: string;
   content: string;
 };
 
 type CardStatuses = "IDLE" | "EDITING" | "DELETING" | "VIEWING";
 
-export default function Card({ title, content }: CardProps) {
+export default function Card({ _id, title, content }: CardProps) {
   const [status, setStatus] = useState<CardStatuses>("IDLE");
+  const { deleteNoteMutation, updateNoteMutation } = useNoteMutations();
 
-  const handleDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.stopPropagation();
-    setStatus("DELETING");
+  const handleUpdateNote = (updatedNote: Note) => {
+    updateNoteMutation({ _id, ...updatedNote });
+    setStatus("IDLE");
   };
-  const handleEdit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.stopPropagation();
-    setStatus("EDITING");
+
+  const handleDeleteNote = () => {
+    deleteNoteMutation(_id);
+    setStatus("IDLE");
   };
-  const handleView = () => setStatus("VIEWING");
-  const handleClose = () => setStatus("IDLE");
 
   const renderCardContent = (showButtons = true) => (
     <div
       className={classNames(styles.card, { [styles["is-open"]]: status !== "IDLE" })}
-      onClick={handleView}
       title="Click to open note"
       aria-label="Click to open note"
     >
-      <h3 className={styles.title}>{title}</h3>
-      <p className={styles.content}>{content}</p>
+      <div className={styles["click-wrapper"]} onClick={() => setStatus("VIEWING")}>
+        <h3 className={styles.title}>{title}</h3>
+        <p className={styles.content}>{content}</p>
+      </div>
       {showButtons && (
         <div className={styles["button-container"]}>
-          <button className={classNames(styles.button, styles.delete)} onClick={handleDelete}>
+          <button className={classNames(styles.button, styles.delete)} onClick={() => setStatus("DELETING")}>
             <DeleteIcon />
           </button>
-          <button className={classNames(styles.button, styles.edit)} onClick={handleEdit}>
+          <button className={classNames(styles.button, styles.edit)} onClick={() => setStatus("EDITING")}>
             <EditIcon />
           </button>
         </div>
@@ -49,37 +52,26 @@ export default function Card({ title, content }: CardProps) {
     </div>
   );
 
-  switch (status) {
-    case "EDITING":
-      return (
-        <>
-          <Modal onClose={handleClose} removePadding>
-            {renderCardContent(false)}
-          </Modal>
-          {renderCardContent()}
-        </>
-      );
-    case "DELETING":
-      return (
-        <>
-          <Modal onClose={handleClose} removePadding>
-            <p>Do you want to delete this note?</p>
-            <button>Confirm</button>
-            <button>Cancel</button>
-          </Modal>
-          {renderCardContent()}
-        </>
-      );
-    case "VIEWING":
-      return (
-        <>
-          <Modal onClose={handleClose} removePadding>
-            {renderCardContent(false)}
-          </Modal>
-          {renderCardContent()}
-        </>
-      );
-    default:
-      return renderCardContent();
-  }
+  return (
+    <>
+      {status === "EDITING" && (
+        <Modal onClose={() => setStatus("IDLE")} header="Update Your Note">
+          <Form initialValues={{ title, content }} onSubmit={handleUpdateNote} />
+        </Modal>
+      )}
+      {status === "DELETING" && (
+        <Modal onClose={() => setStatus("IDLE")} removePadding>
+          <p>Do you want to delete this note?</p>
+          <button onClick={handleDeleteNote}>Confirm</button>
+          <button onClick={() => setStatus("IDLE")}>Cancel</button>
+        </Modal>
+      )}
+      {status === "VIEWING" && (
+        <Modal onClose={() => setStatus("IDLE")} removePadding>
+          {renderCardContent(false)}
+        </Modal>
+      )}
+      {renderCardContent()}
+    </>
+  );
 }

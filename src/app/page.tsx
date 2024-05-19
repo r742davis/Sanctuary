@@ -1,10 +1,9 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { Card, Form, Modal, SearchBar } from "@components";
-import queryClient from "lib/react-query-client";
-import { Note, createNote, getNotes, updateNote } from "lib/note-api";
+import { Note, NoteData, getNotes, useNoteMutations } from "@lib";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -20,18 +19,9 @@ export default function Home() {
     queryFn: getNotes,
     retry: 3,
   });
+  const { createNoteMutation } = useNoteMutations();
 
-  const { mutate: createNoteMutation, isError: isCreateError } = useMutation({
-    mutationFn: createNote,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["notes"] }),
-  });
-
-  const { mutate: updateNoteMutation, isError: isUpdateError } = useMutation({
-    mutationFn: updateNote,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["notes"] }),
-  });
-
-  const filterNotes = useCallback((query: string, notes: Array<Note>) => {
+  const filterNotes = useCallback((query: string, notes: Array<NoteData>) => {
     const regex = new RegExp(query, "i");
     return notes.filter((note) => regex.test(note.content));
   }, []);
@@ -46,15 +36,10 @@ export default function Home() {
 
   const handleCreateNote = (newNote: Note) => {
     createNoteMutation(newNote);
-    if (!isCreateError) setModalOpen(false);
+    handleToggleModal(false);
   };
 
-  const handleUpdateNote = (updatedNote: Note) => {
-    updateNoteMutation(updatedNote);
-    if (!isUpdateError) setModalOpen(false);
-  };
-
-  const filteredCards: Array<Note> = !!notesData ? filterNotes(keyword, notesData) : [];
+  const filteredCards: Array<NoteData> = !!notesData ? filterNotes(keyword, notesData) : [];
 
   return (
     <>
@@ -77,8 +62,8 @@ export default function Home() {
             </button>
           </div>
           <div className={styles.list}>
-            {filteredCards.map((card, i) => (
-              <Card key={`card-${i}`} title={card.title} content={card.content} />
+            {filteredCards.map(({ _id, title, content }, i) => (
+              <Card key={`card-${i}`} _id={_id} title={title} content={content} />
             ))}
           </div>
         </div>
