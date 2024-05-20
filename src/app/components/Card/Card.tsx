@@ -29,9 +29,12 @@ export default function Card({ _id, title, content }: CardProps) {
     setStatus("IDLE");
   };
 
-  const renderCardContent = (showButtons = true) => (
+  const renderCardContent = (showButtons = true, showAnimations = false) => (
     <div
-      className={classNames(styles.card, { [styles["is-open"]]: status !== "IDLE" })}
+      className={classNames(styles.card, {
+        [styles["is-open"]]: status !== "IDLE",
+        [styles["show-animations"]]: showAnimations,
+      })}
       title="Click to open note"
       aria-label="Click to open note"
     >
@@ -60,10 +63,11 @@ export default function Card({ _id, title, content }: CardProps) {
         </Modal>
       )}
       {status === "DELETING" && (
-        <Modal onClose={() => setStatus("IDLE")} removePadding>
-          <p>Do you want to delete this note?</p>
-          <button onClick={handleDeleteNote}>Confirm</button>
-          <button onClick={() => setStatus("IDLE")}>Cancel</button>
+        <Modal onClose={() => setStatus("IDLE")} header="Do you want to delete this note?" autoHeight>
+          <div className={styles["delete-notification"]}>
+            <button onClick={handleDeleteNote}>Confirm</button>
+            <button onClick={() => setStatus("IDLE")}>Cancel</button>
+          </div>
         </Modal>
       )}
       {status === "VIEWING" && (
@@ -71,7 +75,7 @@ export default function Card({ _id, title, content }: CardProps) {
           {renderCardContent(false)}
         </Modal>
       )}
-      {renderCardContent()}
+      {renderCardContent(true, true)}
     </>
   );
 }

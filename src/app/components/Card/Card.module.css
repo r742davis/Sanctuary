@@ -2,10 +2,14 @@
   display: flex;
   flex-flow: column;
   height: 400px;
+  width: auto;
   padding: 0.8rem;
   background-color: aliceblue;
   border-radius: 0.8rem;
   position: relative;
+  border: calc(0.08 * 2rem) solid transparent;
+  overflow-wrap: break-word;
+  transition: border-color var(--transition);
 }
 
 .title {
@@ -15,7 +19,7 @@
   z-index: 1;
 }
 
-.title::before {
+.title.show-animations::before {
   content: " ";
   display: block;
   position: absolute;
@@ -31,18 +35,9 @@
   transform-origin: bottom right;
 }
 
-.card:hover .title::before {
-  transform: scaleX(1);
-  transform-origin: bottom left;
-}
-
 .content,
 .click-wrapper {
   height: 100%;
-}
-
-.click-wrapper:not(.is-open):hover {
-  cursor: pointer;
 }
 
 .button-container {
@@ -65,16 +60,83 @@
   transition: background-color var(--transition-fast), stroke var(--transition-fast);
 }
 
-.button:hover {
-  stroke: white;
-  background-color: var(--button-background);
-  transition: background-color var(--transition), stroke var(--transition-fast);
-}
-
 .button svg {
   width: 1.6rem;
   height: 1.6rem;
   stroke: inherit;
   stroke-width: 2;
   fill: none;
+}
+
+.delete-notification {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.delete-notification button {
+  width: 30%;
+  padding: 0.8rem;
+  border-radius: 0.8rem;
+  height: fit-content;
+}
+
+.delete-notification button:first-child {
+  color: white;
+  background-color: var(--button-background-error);
+}
+
+.card.show-animations {
+  background: linear-gradient(aliceblue, aliceblue),
+    linear-gradient(aliceblue 50%, rgba(18, 18, 19, 0.6) 80%, rgba(18, 18, 19, 0)),
+    linear-gradient(
+      90deg,
+      var(--orange),
+      var(--yellow),
+      var(--green),
+      var(--blue),
+      var(--purple),
+      var(--pink),
+      var(--red)
+    );
+  background-size: 200%;
+  background-origin: border-box;
+  animation: animate 2s infinite linear;
+  transition: background-clip var(--transition);
+  border: calc(0.08 * 2rem) solid transparent;
+}
+
+@media (hover: hover) {
+  .click-wrapper:not(.is-open):hover {
+    cursor: pointer;
+  }
+
+  .card.show-animations:hover {
+    background-clip: padding-box, padding-box, border-box;
+    transition: background-clip 5s ease, background-origin 5s ease, border 5s ease;
+  }
+
+  .card.show-animations:hover .title::before {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  .button:hover {
+    stroke: white;
+    background-color: var(--button-background);
+    transition: background-color var(--transition), stroke var(--transition-fast);
+  }
+
+  .delete-notification button:hover {
+    cursor: pointer;
+  }
+}
+
+@keyframes animate {
+  0% {
+    background-position: 0;
+  }
+  100% {
+    background-position: 200%;
+  }
 }

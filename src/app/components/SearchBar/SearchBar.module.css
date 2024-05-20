@@ -1,6 +1,6 @@
 .wrapper {
   height: 3rem;
-  width: 60%;
+  min-width: 60%;
   position: relative;
 }
 

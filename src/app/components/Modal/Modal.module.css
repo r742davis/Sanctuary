@@ -15,9 +15,8 @@
 .modal {
   display: flex;
   flex-flow: column;
-  height: 50vh;
-  width: 100%;
-  max-width: 500px;
+  min-height: 25vh;
+  width: clamp(350px, 75%, 500px);
   background-color: aliceblue;
   border-radius: 0.8rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -25,6 +24,11 @@
   z-index: 2;
   overflow: hidden;
   animation: grow 0.3s ease-in-out;
+}
+
+.modal.auto-height {
+  height: auto;
+  min-height: unset;
 }
 
 .header {

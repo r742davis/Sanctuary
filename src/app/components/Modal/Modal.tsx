@@ -7,14 +7,24 @@ export type ModalProps = {
   onClose: () => void;
   header?: string;
   removePadding?: boolean;
+  autoHeight?: boolean;
 };
 
-export default function Modal({ children, onClose, removePadding, header = "Note" }: ModalProps & PropsWithChildren) {
+export default function Modal({
+  children,
+  onClose,
+  removePadding,
+  autoHeight,
+  header = "Note",
+}: ModalProps & PropsWithChildren) {
   const portalRoot = document.getElementById("portal-root") as HTMLElement;
 
   const modalJsx = (
     <div className={styles.overlay} onClick={onClose}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+      <div
+        className={classNames(styles.modal, { [styles["auto-height"]]: autoHeight })}
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className={styles.header}>
           <h4>{header}</h4>
           <button className={styles["close-button"]} onClick={onClose} title="Close the note">

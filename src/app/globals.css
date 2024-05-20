@@ -21,6 +21,14 @@
   --transition: var(--animation-duration) var(--animation-timing);
   --transition-slow: var(--animation-duration-slow) var(--animation-timing);
   --transition-fast: var(--animation-duration-fast) var(--animation-timing);
+
+  --red: #ff6565;
+  --pink: #ff64f9;
+  --purple: #6b5fff;
+  --blue: #4d8aff;
+  --green: #5bff89;
+  --yellow: #cfbf31;
+  --orange: #ff6d1b;
 }
 
 * {
