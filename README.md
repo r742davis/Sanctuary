@@ -115,17 +115,18 @@ I think the biggest struggls were re-familiarizing myself with the basic setup o
 - Taking the project from design to finished product, including wireframing, API development, hosting, testing, and then frontend design and development
 
 ### Future Considerations
-There's a lot that can be done to make this a more robust and individually tailored to the user. Basic authentication and user creation would be at the top of the list since currently notes can be shared to anyone who goes to the site. Then it would be database and server security by including JSON web tokens and making API routes only accessible by our domain. After that, I would focus on improving the project structure in preparation for future feature development: global state management, optimize React render cycles, improve Type safety and use of Generics, improved error handling and loading, and reduce component-state coupling for better composition.
+There's a lot that can be done to make this a more robust and individually tailored to the user. Basic authentication and user creation would be at the top of the list since currently notes can be shared to anyone who goes to the site. Then it would be database and server security by including JSON web tokens and making API routes only accessible by our domain. After that, I would focus on improving the project structure in preparation for future feature development: global state management, optimize React render cycles, improve Type safety and use of Generics, improved error handling and loading, testing components, and reduce component-state coupling for better composition.
 
 #### List of Considerations:
 - Authentication to limit notes to a specific user
-- Database & server API security
+- Database & server API security + testing coverage
 - Context Provider and a reducer for advanced state management
 - Improved routing structure for new features
 - Optimize rendering cycles with useMemo
 - Better error handling and loading states for React Query API routes
 - Unified button component
 - Split top-level components into smaller, more presentational components
+- Testing for components
 
 ## Solace Assignment
 Solace wants to see how you develop code and deliver a small project that would be similar to your day-to-day work at Solace. The app built here will flex both your backend and frontend skill sets.
