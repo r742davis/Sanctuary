@@ -15,11 +15,11 @@
 .title {
   margin-bottom: 0.8rem;
   position: relative;
-  width: min-content;
+  width: fit-content;
   z-index: 1;
 }
 
-.title.show-animations::before {
+.card.show-animations .title::before {
   content: " ";
   display: block;
   position: absolute;
