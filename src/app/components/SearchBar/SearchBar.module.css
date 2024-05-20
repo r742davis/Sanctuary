@@ -1,7 +1,8 @@
 .wrapper {
   height: 3rem;
-  min-width: 60%;
+  width: 100%;
   position: relative;
+  flex: 1;
 }
 
 .input {

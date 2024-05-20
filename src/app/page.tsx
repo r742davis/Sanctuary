@@ -9,12 +9,7 @@ import styles from "./page.module.css";
 export default function Home() {
   const [keyword, setKeyword] = useState("");
   const [isModalOpen, setModalOpen] = useState(false);
-  const {
-    isPending,
-    error,
-    data: notesData,
-    isFetching,
-  } = useQuery({
+  const { data: notesData } = useQuery({
     queryKey: ["notes"],
     queryFn: getNotes,
     retry: 3,
@@ -23,7 +18,7 @@ export default function Home() {
 
   const filterNotes = useCallback((query: string, notes: Array<NoteData>) => {
     const regex = new RegExp(query, "i");
-    return notes.filter((note) => regex.test(note.content));
+    return notes.filter((note) => regex.test(note.title) || regex.test(note.content));
   }, []);
 
   const handleSubmitKeyword = (submission: string) => {

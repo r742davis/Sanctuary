@@ -13,8 +13,8 @@ export default function Form({
 }) {
   const [error, setError] = useState<string | null>(null);
   const { values, handleChange, resetForm } = useForm<Pick<Note, "title" | "content">>({
-    title: "",
-    content: "",
+    title: initialValues?.title ?? "",
+    content: initialValues?.content ?? "",
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
